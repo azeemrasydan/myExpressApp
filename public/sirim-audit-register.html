@@ -1,0 +1,880 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <style>
+        /* Start specific finding table */
+        * {
+            box-sizing: border-box;
+        }
+
+        #myInput {
+            background-image: url('/css/searchicon.png');
+            background-position: 10px 10px;
+            background-repeat: no-repeat;
+            width: 100%;
+            font-size: 16px;
+            padding: 12px 20px 12px 40px;
+            border: 1px solid #ddd;
+            margin-bottom: 12px;
+        }
+
+        #specificFinding {
+            background-image: url('/css/searchicon.png');
+            background-position: 10px 10px;
+            background-repeat: no-repeat;
+            width: 100%;
+            font-size: 16px;
+            padding: 12px 20px 12px 40px;
+            border: 1px solid #ddd;
+            margin-bottom: 12px;
+        }
+
+        #myTable {
+            border-collapse: collapse;
+            width: 100%;
+            border: 1px solid #ddd;
+            font-size: 16px;
+            color: black;
+        }
+
+        .toggleRowClass {
+            background-color: rgb(209, 201, 201);
+            color: black;
+        }
+
+        #myTable tr {
+
+            background-color: #009879;
+            color: #ffffff;
+            text-align: left;
+        }
+
+
+        #myTable th,
+        #myTable td {
+            text-align: left;
+            padding: 8px;
+        }
+
+
+
+        #myTable tr.header,
+        #myTable tr:hover {
+            background-color: #f1f1f1;
+            color: black;
+        }
+
+        /* End Specific Finding Table */
+
+        .dropdown {
+            margin: 20px;
+        }
+
+        .dropdown-menu {
+            max-height: 20rem;
+            overflow-y: auto;
+        }
+
+        .masthead {
+            height: 100vh;
+            min-height: 500px;
+            background-image: url('https://source.unsplash.com/BtbjCFUvBXs/1920x1080');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .card-body {
+            /* The image used */
+            background-image: url("https://img.freepik.com/free-vector/elegant-white-background-with-shiny-lines_1017-17580.jpg?size=626&ext=jpg");
+
+            /* Full height */
+            height: 100%;
+
+            /* Center and scale the image nicely */
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        .imageEvidence {
+
+            height: 200;
+            padding: 2 px;
+            border-image: 1cm;
+        }
+
+        .submittedEffect {
+
+            background-color: green;
+            transition-delay: 1000;
+        }
+
+        .submittedEffectFailed {
+
+            background-color: red;
+            transition-delay: 1000;
+        }
+
+        .fieldRequired {
+
+            padding: 2 px;
+            color: red;
+            font-weight: bold;
+            font-size: small;
+
+        }
+
+        /* Animation spinner */
+    </style>
+
+    <title>Green 5S SIRIM Audit Register</title>
+</head>
+
+<body>
+
+    <div class="card-body">
+
+        <h5 class="card-title">5S SIRIM Audit Register</h5>
+
+        <div class="div5s">
+
+            <form id="form">
+                <div class="form-group col-md-4">
+                    <label for="uploadfile"><b>1. Please provide evidence</b></label>
+                    <div id="data" class="fieldRequired"></div>
+                    <input type="file" class="form-control-file" id="imgInput" name="imgInput" accept="image/*"
+                        onchange="readURL(this);" multiple="multiple">
+                    <!-- <input id="submit" type="submit"> -->
+                </div>
+
+                <div class="thumbnail" id="dvPreview" style="padding: 1px 1px 5px 1px; color:red; font-weight:bold">
+                </div>
+
+
+                <div class=" form-row">
+                    <div class="form-group col-md-4">
+                        <label for="inputState"><b>2. Location</b></label>
+                        <div id="data2" class="fieldRequired"></div>
+                        <select id="inputState" class="form-control" onchange="locationOptionChange()" name="location">
+                        </select>
+                    </div>
+                </div>
+                <fieldset class="form-group">
+                    <div class="row">
+                        <legend class="col-form-label col-sm-2 pt-0"><b>3. Area Owner Category</b></legend>
+                        <div class="col-sm-10">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="Area Owner" id="gridRadios1-1"
+                                    value="1" onclick="locationOptionChange()">
+                                <label class="form-check-label" for="gridRadios1-1">
+                                    Premises / Business Operators
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="Area Owner" id="gridRadios1-2"
+                                    value="2" checked onclick="contractorOptionChange()">
+                                <label class="form-check-label" for="gridRadios1-2">
+                                    Contractors / PLUS Section / Others
+                                </label>
+                            </div>
+                        </div>
+                </fieldset>
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <label id="labelInputState1" for="inputState1"><b>4. Specific Area</b></label>
+
+                        <select id="inputState1" class="form-control" name="premise">
+                        </select>
+                    </div>
+                </div>
+                <fieldset class="form-group">
+                    <div class="row">
+                        <legend class="col-form-label col-sm-2 pt-0"><b>5. Type of Finding</b></legend>
+                        <div class="col-sm-10">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1"
+                                    value="OB" checked>
+                                <label class="form-check-label" for="gridRadios1">
+                                    OB
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2"
+                                    value="NC">
+                                <label class="form-check-label" for="gridRadios2">
+                                    NC
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios3"
+                                    value="BP">
+                                <label class="form-check-label" for="gridRadios3">
+                                    BP
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <label for="dropdown_coins"><b>6. Specific Finding Category</b></label>
+                        <div id="data6" class="fieldRequired"></div>
+                        <input type="text" id="myInput" onkeyup="myFunction()"
+                            placeholder="Search for specific finding.." title="Type in a name" name="Clauses">
+                        <input type="text" id="specificFinding" onclick="makeTableAppear(this)"
+                            placeholder="Search for names.." title="Specific Finding" style="display:none"
+                            name="Specific Finding Category">
+                        <table id="myTable" style="float:left;">
+                        </table>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputAddress2"><b>7. Description of Finding</b></label>
+                    <input type="text" class="form-control" id="inputAddress2"
+                        placeholder="Label tidak ditampal mengikut standard" name="Description">
+                </div>
+
+
+                <div id="dataSubmit" class="fieldRequired"></div>
+                <button id="submit" type="submit" class="btn btn-primary">Submit</button>
+
+
+
+            </form>
+
+
+
+        </div>
+    </div>
+
+    </div>
+
+
+
+
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.js"></script>
+    <script type="module" src="./function.js"></script>
+
+
+    <script>
+        //Global variables
+        var locationArray = [];
+        var plusFacilityArray = [];
+        var plusClausesArray = [];
+        var selectedRowTag, selectedSpecificFinding;
+        var plusPremiseArray = [];
+        var numberFilesAdded = "";
+        var imageBase64 = {};
+        var submittingState = false;
+
+        //Script will run whenever page refreshes
+        $(document).ready(function () {
+            // var request = $.ajax({
+            //     url: "https://prod-13.southeastasia.logic.azure.com:443/workflows/94dad5065fd3461b9857b6c5bdc8c2e8/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=ATcM8NLnGC_zUIXm-GtL6RhoxB89l-AxOtQ4AFoh_n8"
+            //     , contentType: "application/json"
+            //     , type: "POST"
+            //     , error: function (jqXhr, textStatus, errorMessage) { // error callback 
+            //         alert('Error: ' + errorMessage);
+            //     }
+
+            // });
+
+            // request.done(function (msg) {
+            //     console.log(msg);
+            //     msg = JSON.stringify(msg);
+            //     msg = JSON.parse(msg);
+            //     console.log(msg[0].Abbreviation);
+            // })
+
+
+
+
+            // GET REQUEST
+
+            // API for 37 locations
+            const locationAPI = "https://prod-13.southeastasia.logic.azure.com:443/workflows/94dad5065fd3461b9857b6c5bdc8c2e8/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=ATcM8NLnGC_zUIXm-GtL6RhoxB89l-AxOtQ4AFoh_n8";
+            const plusClausesAPI = "https://prod-23.southeastasia.logic.azure.com:443/workflows/798c3eecc63d4dc599a3b6a0e35aca10/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=MUV-s2omneFRES7Zt2kfpalyvBntD00YScGMvTssfqo";
+            const plusFacilityAPI = "https://prod-18.southeastasia.logic.azure.com:443/workflows/415a89ff009a404aa9a0d7f42da61225/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=mIklpr3bdUd783c57Bc68P2pTG81QGzU9Z5MfFSULHI";
+            // fetch(locationAPI)
+            //     .then(response => {
+            //         return response.json();
+            //     })
+            //     .then(data => {
+            //         // console.log(data);
+            //     })
+            //     .catch(error => console.log(error));
+
+
+            // fetch(locationAPI, {
+            //     method: 'POST',
+            //     headers: {
+            //         "Content-Type": "application/json",
+            //         "Access-Control-Allow-Origin": "*",
+            //     },
+            //     body: JSON.stringify({
+            //         "name": "Azeem",
+            //     })
+            // })
+            //     .then(response => {
+            //         return response.json();
+            //     })
+            //     .then(data => {
+            //         console.log(data);
+            //         document.getElementById('');
+            //     })
+            //     .catch(error => console.log(error));
+
+            // Location POST REQUEST
+            fetch(locationAPI, {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    "name": "Azeem",
+                })
+            })
+                .then(response => {
+                    return response.json();
+                })
+                .then(data => {
+
+
+
+                    data.forEach(element => {
+
+                        var locationNode = document.createElement("option");
+                        var textLocationNode = document.createTextNode(element.Location);
+                        locationNode.appendChild(textLocationNode);
+                        document.getElementById("inputState").appendChild(locationNode);
+                    });
+                    locationFunction(data);
+                })
+                .catch(error => console.log(error));
+
+            function locationFunction(dataset) {
+
+                locationArray = dataset;
+            };
+
+
+            //PLUS Facility POST REQUEST
+            fetch(plusFacilityAPI, {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    "name": "Azeem",
+                })
+            })
+                .then(response => {
+                    return response.json();
+                })
+                .then(data => {
+
+
+
+                    data.forEach(element => {
+
+                        var plusFacilityNode = document.createElement("option");
+                        var textPlusFacilityNode = document.createTextNode(element.Title);
+                        plusFacilityNode.appendChild(textPlusFacilityNode);
+                        plusFacilityNode.id = element.OData__x0035_S_x0020_ID;
+                        //console.log(plusFacilityNode.id);
+
+                        document.getElementById("inputState1").appendChild(plusFacilityNode);
+                    });
+                    plusFacilityFunction(data);
+                })
+                .catch(error => console.log(error));
+
+            function plusFacilityFunction(dataset) {
+
+                plusFacilityArray = dataset;
+            };
+
+
+            //PLUS Specific 50 Clauses POST REQUEST
+            fetch(plusClausesAPI, {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    "name": "Azeem",
+                })
+            })
+                .then(response => {
+                    return response.json();
+                })
+                .then(data => {
+
+
+
+                    data.forEach(element => {
+
+
+
+                        let table = document.getElementById("myTable");
+                        let row = table.insertRow(0);
+                        let cell1 = row.insertCell(0);
+                        let cell2 = row.insertCell(1);
+                        cell1.innerHTML = element.Title;
+                        cell2.innerHTML = element.Keterangan_x0020_spesifik;
+                        window.onload = addRowHandlers();
+                    });
+
+                    plusClausesFunction(data);
+                })
+                .catch(error => console.log(error));
+
+            function plusClausesFunction(dataset) {
+
+                plusClausesArray = dataset;
+            };
+
+        });
+
+
+
+
+
+        //Refresh page block code ends
+        
+
+        // When location OPTION changes
+        function locationOptionChange() {
+
+            //To retrieve Location Value
+            let selectedLocation = document.getElementById("inputState").value;
+            var selectedLocationAbbreviation = lookupProfile(locationArray, "Location", selectedLocation, "Abbreviation");
+            //console.log(selectedLocationAbbreviation);
+
+            //To retrieve Area Owner Category Value
+            let selectedBusinessOperator = document.getElementById("gridRadios1-1").checked;
+            let selectedAreaOwner = (selectedBusinessOperator) ? 'Business Operator' : 'Contractor';
+            document.getElementById("data").innerText = "";
+
+            //console.log(selectedAreaOwner);
+
+            //To get Premise LIST from server if area owner category is not contractor
+            if (selectedAreaOwner == "Business Operator") {
+
+                const plusPremiseAPI = "https://prod-01.southeastasia.logic.azure.com:443/workflows/1863c38779124a0d8ecfdca9bb1245ee/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=lD6gt0bL6NSdvA_C4SSkMT4FNTFzJN9H06DD6zvnIuM";
+
+                fetch(plusPremiseAPI, {
+                    method: 'POST',
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        "try": selectedLocationAbbreviation,
+                    })
+                })
+                    .then(response => {
+                        return response.json();
+                    })
+                    .then(data => {
+
+
+                        document.getElementById("inputState1").innerHTML = "";
+                        data.forEach(element => {
+
+
+                            var plusPremiseNode = document.createElement("option");
+                            var textPlusPremiseNode = document.createTextNode("Premis no " + element.OData__x0035_S_x0020_ID + " - " + element.Location_x0020_Name + " dimiliki oleh " + element.Person_x0020_In_x0020_Charge);
+                            plusPremiseNode.appendChild(textPlusPremiseNode);
+                            plusPremiseNode.id = element.OData__x0035_S_x0020_ID
+                            document.getElementById("inputState1").appendChild(plusPremiseNode);
+                        });
+
+                        plusPremiseFunction(data);
+                    })
+                    .catch(error => console.log(error));
+
+                function plusPremiseFunction(dataset) {
+
+                    plusPremiseArray = dataset;
+                };
+
+
+
+            }
+
+
+
+
+        }
+
+
+        function readURL(input) {
+            var dvPreview = document.getElementById("dvPreview");
+            dvPreview.innerHTML = "";
+            var regex = /\.(gif|jpg|jpeg|tiff|png)$/i;
+            inputImages = document.getElementById("imgInput");
+            var html = "";
+            numberFilesAdded = input.files.length;
+
+            if (input.files.length > 3) {
+
+                dvPreview.innerHTML = "You cannot enter more than 3 images *"
+                inputImages.value = ""
+
+            }
+            else {
+
+                for (var i = 0; i < input.files.length; i++) {
+                    var file = input.files[i];
+
+                    if (regex.test(file.name.toLowerCase())) {
+                        var reader = new FileReader();
+                        console.log(reader);
+                        reader.fileName = "image" + i;
+                        //reader.fileName = file.name;
+                        reader.onload = function (e) {
+                            var img = document.createElement("IMG");
+                            img.classList = "image-thumbnail";
+                            img.style.height = "200px";
+                            img.style.border = "3px solid #ddd";
+
+                            img.src = e.target.result;
+
+                            dvPreview.appendChild(img);
+
+                            let mimeType = e.target.result.match(/^.*(?=;)/)[0];
+                            let dataBase64 = e.target.result.replace(/^.*,/, '');
+                            let jsonBase64 = mimeType + ";" + "base64," + dataBase64;
+                            let imageIndex = e.target.fileName;
+                            imageBase64[imageIndex] = jsonBase64;
+                    
+
+                            //html = html + '<input type="hidden" name=' + '"' + imageIndex + '"' + ' value="' + jsonBase64 + '" >';
+                            //console.log(html);
+                            // if (html == null) {
+                            //     let html = '<input type="hidden" name=' + '"' + imageIndex + '"' + ' value="' + jsonBase64 + '" >';
+                            // } else {
+                            //     html += '<input type="hidden" name=' + '"' + imageIndex + '"' + ' value="' + jsonBase64 + '" >';
+                            // };
+
+
+                            // html = '<input type="hidden" name="data" value="' + e.target.result.replace(/^.*,/, '') + '" >';
+                            // html += '<input type="hidden" name="mimetype" value="' + e.target.result.match(/^.*(?=;)/)[0] + '" >';
+                            // html += '<input type="hidden" name="filename" value="' + e.target.fileName + '" >';
+                            //$("#data").empty().append(html);
+
+                        }
+
+                        reader.readAsDataURL(file);
+                    } else {
+                        inputImages.value = ""
+                        dvPreview.innerHTML = file.name + " extension is not a valid image !*";
+                        $("#data").empty();
+                        break;
+                        return false;
+                    }
+                }
+
+
+
+            }
+
+
+
+            // if (input.files && input.files[0]) {
+            //     var reader = new FileReader();
+
+            //     reader.onload = function (e) {
+            //         console.log(e);
+            //         $('#blah')
+            //             .attr('src', e.target.result)
+
+            //     };
+
+            //     reader.readAsDataURL(input.files[0]);
+            // }
+        }
+
+        function addRowHandlers() {
+            var table = document.getElementById("myTable");
+            var rows = table.getElementsByTagName("tr");
+
+            for (i = 0; i < rows.length; i++) {
+                var currentRow = table.rows[i];
+                var createClickHandler =
+                    function (row) {
+                        return function () {
+                            var cell = row.getElementsByTagName("td")[1];
+                            var id = cell.innerHTML;
+                            table = document.getElementById("myTable");
+                            specificFindingInput = document.getElementById("specificFinding");
+
+                            table.style.display = "none";
+                            specificFindingInput.style.display = "initial";
+                            specificFindingInput.value = id;
+
+                            searchButton = document.getElementById('myInput');
+                            searchButton.value = row.getElementsByTagName("td")[0].innerHTML;
+                            searchButton.disabled = true;
+                            document.getElementById("data6").innerText = "";
+
+
+                            //console.log(row);
+                        };
+                    };
+
+                currentRow.onclick = createClickHandler(currentRow);
+            }
+        }
+
+
+        /* 
+        Filter table select mode
+        */
+        // function myFunction() {
+        //     var input, filter, table, tr, td, i, txtValue, td1;
+        //     input = document.getElementById("myInput");
+        //     filter = input.value.toUpperCase();
+        //     table = document.getElementById("myTable");
+        //     tr = table.getElementsByTagName("tr");
+        //     for (i = 0; i < tr.length; i++) {
+        //         td = tr[i].getElementsByTagName("td")[1];
+        //         td1 = tr[i].getElementsByTagName("td")[0];
+        //         if (td || td1) {
+        //             txtValue = td.textContent || td.innerText || td1.textContent || td1.innerText;
+        //             if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        //                 tr[i].style.display = "";
+        //             } else {
+        //                 tr[i].style.display = "none";
+        //             }
+        //         }
+        //     }
+        // }
+        function filterTable(event) {
+            var filter = event.target.value.toUpperCase();
+            var rows = document.querySelector("#myTable tbody").rows;
+
+            for (var i = 0; i < rows.length; i++) {
+                var firstCol = rows[i].cells[0].textContent.toUpperCase();
+                var secondCol = rows[i].cells[1].textContent.toUpperCase();
+                if (firstCol.indexOf(filter) > -1 || secondCol.indexOf(filter) > -1) {
+                    rows[i].style.display = "";
+                } else {
+                    rows[i].style.display = "none";
+                }
+            }
+        }
+
+        document.querySelector('#myInput').addEventListener('keyup', filterTable, false);
+
+
+
+        /*
+        End
+        */
+
+        // Lookup value other proerty / key from Objects
+        function lookupProfile(myObj, propertytolookup, valtolookup, lookedupprop) {
+
+            for (var i = 0; i < myObj.length; i++) {
+
+                if (myObj[i][propertytolookup] === valtolookup) {
+                    if (myObj[i].hasOwnProperty(lookedupprop) === true) {
+                        return myObj[i][lookedupprop];
+                    }
+
+                    else {
+                        return undefined;
+                    }
+
+                }
+
+            }
+        }
+
+
+
+        var form = document.getElementById('form');
+        form.onsubmit = function (e) {
+            // stop the regular form submission
+            e.preventDefault();
+
+            // collect the form data while iterating over the inputs
+            var data = {};
+            for (var i = 0, ii = form.length; i < ii; ++i) {
+                var input = form[i];
+                if (input.name) {
+                    data[input.name] = input.value;
+                }
+            }
+            
+            data["image0"] = imageBase64["image0"];
+            data["image1"] = imageBase64["image1"];
+            data["image2"] = imageBase64["image2"];
+
+
+            yourDateObject = new Date();
+            var ticks = ((yourDateObject.getTime() * 10000) + 621355968000000000);
+            let selectedBusinessOperator = document.getElementById("gridRadios1-1").checked;
+            let selectedAreaOwner = (selectedBusinessOperator) ? 'Business Operator' : 'Contractor / PLUS';
+
+
+            let selectedFindingType = document.querySelector('input[name="gridRadios"]:checked').value;
+            //console.log(selectedFindingType);
+
+            data["submission id"] = "CA-" + ticks;
+            data["Section"] = lookupProfile(locationArray, "Location", data["location"], "Title");
+            data["Area Owner"] = selectedAreaOwner;
+            data["Number of files"] = numberFilesAdded;
+            data["gridRadios"] = selectedFindingType;
+
+
+            let input1 = document.getElementById("inputState1");
+            let inputSelectedId = input1.options[input1.selectedIndex].id;
+            data["Area 5S ID"] = inputSelectedId;
+            //console.log(data["Area 5S ID"]);
+
+
+
+            //Verify all forms are filled
+            let imageIsBlank = data["image0"] == undefined && data["image1"] == undefined && data["image2"] == undefined;
+            let locationIsNotSelected = data["location"] == undefined;
+            let specificFindingIsNotSelected = data["Specific Finding Category"] == "";
+
+
+            //console.log(JSON.stringify(data));
+            if (imageIsBlank || locationIsNotSelected || specificFindingIsNotSelected) {
+
+                if (imageIsBlank) document.getElementById("data").innerText = "Please insert image !";
+                if (locationIsNotSelected) document.getElementById("data2").innerText = "Please select location !";
+                if (specificFindingIsNotSelected) document.getElementById("data6").innerText = "Please choose specific finding !";
+
+                document.getElementById("dataSubmit").innerText = "Missing fields !";
+
+            } 
+            else if(submittingState){
+                document.getElementById("dataSubmit").innerText = "Submitting, please wait !";
+            } else{
+
+                var submitButton = document.getElementById("submit");
+                const plusAuditRegisterURL = "https://prod-04.southeastasia.logic.azure.com:443/workflows/f10cbe383bca45219406e0f11db9812b/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=W5fDpmyUZweyw8ysPKrHVsEFa2NoelBzO8bgVoVwFm0";
+
+                submittingState = true;
+                fetch(plusAuditRegisterURL, {
+                    method: 'POST',
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(data)
+                })
+                    .then(response => {
+                        if (!response.ok) {
+                            submitButton.innerHTML = "Submission Unsuccessful";
+                            submitButton.classList.add('submittedEffectFailed');
+                            //setTimeout(function() { location.reload(); }, 2000);
+                            throw new Error('Network response was not ok');
+
+                        } else {
+
+                            submitButton.innerHTML = "Successful";
+                            submitButton.classList.add('submittedEffect');
+                            location.reload();
+
+                        }
+                    })
+                    .then(data => {
+
+                    })
+                    .catch(error => {
+                        console.log(error)
+
+                    });
+            }
+
+            //console.log(data["submission id"]);
+            //console.log(JSON.stringify(data));
+
+            //submitButton.innerHTML = "Successful";
+            //submitButton.classList.add('submittedEffect');
+            //setTimeout(function() { location.reload(); }, 5000);
+
+
+            // construct an HTTP request
+            // var xhr = new XMLHttpRequest();
+            // xhr.open(form.method, form.asdfction, true);
+            // xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+
+            // // send the collected data as JSON
+            // xhr.send(JSON.stringify(data));
+
+            // xhr.onloadend = function () {
+            //     // done
+        };
+
+
+        function makeTableAppear(input) {
+
+            input.style.display = "none";
+            input.value = "";
+
+            table = document.getElementById('myTable');
+            searchButton = document.getElementById('myInput');
+
+            table.style.display = "initial";
+            searchButton.value = "";
+            searchButton.disabled = false;
+
+
+        }
+
+        function contractorOptionChange() {
+
+            document.getElementById("inputState1").innerHTML = "";
+            plusFacilityArray.forEach(element => {
+
+                var plusFacilityNode = document.createElement("option");
+                var textPlusFacilityNode = document.createTextNode(element.Title);
+                plusFacilityNode.appendChild(textPlusFacilityNode);
+                plusFacilityNode.id = element.OData__x0035_S_x0020_ID;
+
+                document.getElementById("inputState1").appendChild(plusFacilityNode);
+            });
+
+        }
+
+
+
+
+
+    </script>
+</body>
+
+</html>

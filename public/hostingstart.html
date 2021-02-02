@@ -1,0 +1,420 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+
+
+<title>Penemuan Audit 5S</title>
+<meta http-equiv="cache-control" content="max-age=0" />
+<meta http-equiv="cache-control" content="no-cache" />
+<meta http-equiv="expires" content="0" />
+<meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT" />
+<meta http-equiv="pragma" content="no-cache" />
+<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+<link rel="icon" href="favicon.ico">
+
+
+
+
+<style>
+
+@page {
+  size: A4;
+  margin: 0;
+}
+@media print {
+  html, body {
+    width: 210mm;
+    height: 297mm;
+  }
+  /* ... the rest of the rules ... */
+}
+
+
+body {
+  background: url(https://i.ya-webdesign.com/images/png-images-for-website-background-1.png)
+}
+page {
+  background: white;
+  display: block;
+  margin: 0 auto;
+  margin-bottom: 0.5cm;
+  box-shadow: 0 0 0.5cm rgba(0,0,0,0.5);
+}
+page[size="A4"] {  
+  width: 21cm;
+  height: 29.7cm; 
+}
+page[size="A4"][layout="landscape"] {
+  width: 29.7cm;
+  height: 21cm;   
+}
+page[size="A3"] {
+  width: 29.7cm;
+  height: 42cm;
+}
+page[size="A3"][layout="landscape"] {
+  width: 42cm;
+  height: 29.7cm;  
+}
+page[size="A5"] {
+  width: 14.8cm;
+  height: 21cm;
+}
+page[size="A5"][layout="landscape"] {
+  width: 21cm;
+  height: 14.8cm;  
+}
+@media print {
+  body, page {
+    margin: 0;
+    box-shadow: 0;
+  }
+}
+
+#unique {
+padding: 0px;
+display:block;
+  width: 0.7;
+  border:0px;
+  margin-left: auto;
+  margin-right: auto;
+  
+}
+
+.card img { border: 1px solid #ddd;
+  border-radius: 2mm;
+  padding: 1mm;
+  display:block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+   
+   object-fit: cover;
+	}
+
+
+#idprompt{
+
+  cursor: pointer;
+  text-align:center;
+
+}
+
+
+</style>
+</head>
+<body>
+<h1 style= "text-align: center">PENEMUAN AUDIT 5S PLUS</h1>
+
+<div id="idprompt">
+
+<label for="fname" style = "font-weight: bold;">Masukkan no kod ID:</label>
+<input type="text" id="fname" name="fname" style= "text-align:center"><br><br>
+
+<button type="button" onclick="loadDoc()">Dapatkan Penemuan Audit 5S</button>
+<p id="demo"></p>
+
+</div>
+
+
+<div id = "maindisplay">
+
+ </div>
+
+
+
+
+<script>
+  
+  var unixnamefilestring;
+  var uniqueauditfilename;
+
+  unixnamefilestring = Math.round(Math.floor(Date.now()/1000)/600)+1;
+  uniqueauditfilename = "https://rjemuvfws8cu1il5q5n2zg-on.drv.tw/www.unit5splus.tk/indexfolder/2020AuditFinding/2020AuditFinding" + unixnamefilestring + ".txt";
+  uniquefasilitifilename = "https://rjemuvfws8cu1il5q5n2zg-on.drv.tw/www.unit5splus.tk/indexfolder/Facility5S/Facility5S" + unixnamefilestring + ".txt";
+  uniquelocdetailfilename = "https://rjemuvfws8cu1il5q5n2zg-on.drv.tw/www.unit5splus.tk/indexfolder/LocationDetails/LocationDetails" + unixnamefilestring + ".txt";
+  uniquepremisedetailfilename = "https://rjemuvfws8cu1il5q5n2zg-on.drv.tw/www.unit5splus.tk/indexfolder/PremiseDetails/PremiseDetails" + unixnamefilestring + ".txt";
+  unique50specificfilename = "https://rjemuvfws8cu1il5q5n2zg-on.drv.tw/www.unit5splus.tk/indexfolder/SpecificDetails/50SpecificDetails" + unixnamefilestring + ".txt";
+
+
+  console.log(uniqueauditfilename);
+
+
+var alljsondata=[];
+var locationauditee;
+var id5s;
+
+  function loadDoc() {
+  document.getElementById("maindisplay").innerHTML = "<div class=\"d-flex justify-content-center\">\n<div class=\"spinner-border\" role=\"status\">\n<span class=\"sr-only\">Loading...</span>\n</div>\n</div>"
+
+
+  var xhttp = new XMLHttpRequest();
+  var myObj;
+  var auditeeID = document.getElementById("fname").value;
+  locationauditee = auditeeID.split("-")[0];
+  id5S = auditeeID.split("-")[1];
+  alljsondata = [];
+
+// Request to get multiple files using XMLHTTP request
+
+var index = [uniqueauditfilename, uniquefasilitifilename, uniquelocdetailfilename, uniquepremisedetailfilename,unique50specificfilename];
+
+var data;
+
+
+for (var i = 0; i < index.length; i++) {
+
+    var url = index[i];
+
+    let request = new XMLHttpRequest();
+    request.open("GET", url);
+    request.onreadystatechange = function() {
+        if(request.readyState === XMLHttpRequest.DONE && request.status === 200) {
+            data = JSON.parse(request.responseText);
+
+            if(alljsondata.length<5){
+            alljsondata.push(data);
+            
+            if(alljsondata.filter(Boolean).length==5){
+        	jsonFunctionReturn(alljsondata);}
+
+        	}
+
+        }
+
+ 
+        }
+        request.send();
+    }
+
+    
+    
+}
+
+
+var auditfilejson;
+var fasiliti5sjson;
+var locationdetailjson;
+var premisedetailjson;
+var specificdetailsjson;
+
+
+var locationIDprompt;
+var specareaIDprompt;
+var locat;
+
+var listfinding = "";
+var onetimecall = true;
+
+function jsonFunctionReturn(myObj){
+	listfinding = "";
+	auditfilejson = {};
+	var todisplayarray = [];
+// Assign each array from myObj retrieved from XMLHTTP request to the correct category of JSON
+	myObj.forEach(function(elementsall){
+	
+		if(elementsall[0].ReferenceNo_x002e_ != undefined){auditfilejson=elementsall;}
+		if(elementsall[0].BILIK_x0020_FASILITI != undefined){fasiliti5sjson=elementsall;}
+		if(elementsall[0].Abbreviation != undefined){locationdetailjson=elementsall;}
+		if(elementsall[0].Lot_x0020_No_x002e_ != undefined){premisedetailjson=elementsall;}
+		if(elementsall[0].Specific_x0020_Details != undefined){specificdetailsjson=elementsall;}
+	});
+	//console.log(specificdetailsjson);
+
+	locationIDprompt = document.getElementById("fname").value.split("-")[0];
+	specareaIDprompt = document.getElementById("fname").value.split("-")[1];
+	//console.log(specareaIDprompt);
+// Check validity of prompt input
+	var ValidIDExist;
+	ValidIDExist = premisedetailjson.filter(function (item){
+
+				if(item.Location == lookupProfile(locationdetailjson,"Abbreviation",locationIDprompt,"Location") && item.OData__x0035_S_x0020_ID == specareaIDprompt){
+					return true;
+				}else{
+					return false;
+				}
+
+			});
+
+	if(ValidIDExist.length == 0 && specareaIDprompt != "EIS"){alert("Sila masukkan no ID yang sah");document.getElementById("maindisplay").innerHTML="";return;}
+
+	if(specareaIDprompt=="EIS")
+			{
+				specareaIDprompt = fasiliti5sjson.map(function(item){return item["OData__x0035_S_x0020_ID"];});
+			}
+
+
+
+		
+//Filter finding according to ID prompt no
+	todisplayarray = auditfilejson.filter(function(item){
+
+	locat = lookupProfile(locationdetailjson,"Abbreviation",locationIDprompt,"Location");
+		if(typeof specareaIDprompt == "object" && item.Title == locat){
+		
+			var index;
+			var totalbool=false;
+			for(index=0;index<specareaIDprompt.length;index++){
+				totalbool = totalbool || item.Area5SID == specareaIDprompt[index];
+				
+			}
+			return totalbool;
+
+			} else {
+		if(item.Title == locat && item.Area5SID == specareaIDprompt){
+
+			return true;
+		}
+			}
+
+	});
+	//console.log(todisplayarray);
+	var inc;
+	//console.log(todisplayarray.length);
+// To display HTML files from ID requested
+
+
+	var tiadapenemuan;
+	if(todisplayarray.length == 0){
+
+		tiadapenemuan = true;
+
+	}
+
+	todisplayarray = todisplayarray.filter(function(item){
+
+		if(item.Omitted_x003f_ != undefined){return false;}
+
+		if(item.CASubmission == undefined || item.CARejection == "Y"){
+		return true;
+	}else{return false;}
+
+
+	})
+
+	var penemuandalamproses;
+	if(todisplayarray.length == 0){
+
+		penemuandalamproses = true;
+
+	}
+
+
+	for(inc=0;inc<todisplayarray.length;inc++){
+		
+        retrievepremisedetail = [];
+        //i += i + 1;
+        //console.log(i);
+
+		if(typeof specareaIDprompt == "object"){
+			var areatitle = lookupProfile(fasiliti5sjson,"OData__x0035_S_x0020_ID",todisplayarray[inc].Area5SID,"Title");
+			var areaowner = "PLUS Bhd";
+			var premiseno = todisplayarray[inc].Area5SID
+			
+		}else{
+
+			var retrievepremisedetail = premisedetailjson.filter(function(elements){
+				//console.log(elements.Location);
+				
+				return elements.OData__x0035_S_x0020_ID == todisplayarray[inc].Area5SID && elements.Location == todisplayarray[inc].Title;
+				
+			});
+			console.log(retrievepremisedetail);
+			var areatitle = retrievepremisedetail[0].Location_x0020_Name;
+			var areaowner = retrievepremisedetail[0].Person_x0020_In_x0020_Charge;
+			var premiseno = retrievepremisedetail[0].OData__x0035_S_x0020_ID;
+
+			if(premiseno == undefined){
+				premiseno = "-";
+			}
+		}
+
+		var refno = todisplayarray[inc].ReferenceNo_x002e_;
+
+		if(todisplayarray[inc].EvidenceLink1 != undefined){
+			var evidenceimage = "https://rjemuvfws8cu1il5q5n2zg-on.drv.tw/www.unit5splus.tk/indexfolder/Image/5S Folder/" + todisplayarray[inc].ReferenceNo_x002e_ + "[1].jpg";
+		}else if(todisplayarray[inc].EvidenceLink2 != undefined){
+			var evidenceimage = "https://rjemuvfws8cu1il5q5n2zg-on.drv.tw/www.unit5splus.tk/indexfolder/Image/5S Folder/" +  todisplayarray[inc].ReferenceNo_x002e_ + "[2].jpg";
+		}else if(todisplayarray[inc].EvidenceLink3 != undefined){
+			var evidenceimage = "https://rjemuvfws8cu1il5q5n2zg-on.drv.tw/www.unit5splus.tk/indexfolder/Image/5S Folder/" +  todisplayarray[inc].ReferenceNo_x002e_ + "[3].jpg";
+		}
+
+
+		if(evidenceimage == undefined){
+			var evidenceimage = "https://thumbs.dreamstime.com/b/no-image-available-icon-flat-vector-no-image-available-icon-flat-vector-illustration-132482930.jpg"
+		}
+
+		var kategorikesalahan = todisplayarray[inc].Type_x0020_of_x0020_Finding.Value;
+		var checkpoint50 = todisplayarray[inc].OData__x0035_0Checkpoint;
+		var tajukkesalahan = todisplayarray[inc].FindingTitle;
+
+		switch(kategorikesalahan){
+			case "OB":
+				kategorikesalahan = "Observation / Penemuan";
+				break;
+			case "NC":
+				kategorikesalahan = "Non-Conformance / Ketidakpatuhan"
+				break;
+			case "OFI":
+				kategorikesalahan = "Opportunities For Improvement / Peluang Penambahbaikan"
+				break;
+			default:
+				kategorikesalahan = "-"
+
+		}
+
+
+		if(todisplayarray[inc].FindingRemarks != undefined){
+		var keterangankesalahan = todisplayarray[inc].FindingRemarks;
+	}else{keterangankesalahan = "-"}
+
+		//console.log(areatitle + " :" + refno + " - " + evidenceimage + " - " + kategorikesalahan + " - " + checkpoint50 + " - " + tajukkesalahan + " - " + keterangankesalahan);
+
+		listfinding +=  " <div class=\"card\">\n<h2>" + areatitle +"</h2>\n<p>Dikendali oleh " + areaowner + "</p>\n<p>No Rujukan: " + refno + "</p>\n<p>ID Kawasan: " + premiseno + "</p>\n<img src=\"" + evidenceimage + "\" onerror=\"this.onerror=null; this.src='https://thumbs.dreamstime.com/b/no-image-available-icon-flat-vector-no-image-available-icon-flat-vector-illustration-132482930.jpg'\">\n<div>\n<p><b>Klasifikasi penemuan audit: </b>" + kategorikesalahan + "</p>\n<p><b>Klausa 5S: </b>" + checkpoint50 + ": " + tajukkesalahan + "</p>\n<p><b>Keterangan</b></p>\n<p>" + keterangankesalahan + "</p>\n<a href=\"https://docs.google.com/forms/d/e/1FAIpQLSfCX091twB0WyvxUpye-hQuY27rPM4FGFRb4LV8Ggf39AKK6Q/viewform?usp=pp_url&entry.906255584=" + refno + "\" target=\"_blank\">Klik untuk tindakan pembetulan</a>\n</div>\n</div>";
+
+		
+
+		
+
+	};
+	document.getElementById("maindisplay").innerHTML = listfinding;
+	if(tiadapenemuan){
+		document.getElementById("maindisplay").innerHTML = "<h2 style =\"text-align: center\">Tahniah, tiada penemuan di tempat anda!</h2>"
+	}else if(penemuandalamproses){
+
+		document.getElementById("maindisplay").innerHTML = "<h2 style =\"text-align: center\">Semua maklumbalas anda telah dihantar dan sedang di dalam proses!</h2>"
+	}
+
+
+
+}
+
+
+function lookupProfile(myObj,propertytolookup,valtolookup,lookedupprop){
+
+	for(var i =0;i<myObj.length;i++){
+		
+  		if (myObj[i][propertytolookup]===valtolookup){
+  		if(myObj[i].hasOwnProperty(lookedupprop)===true){
+    		return myObj[i][lookedupprop];
+  		}
+
+  		else {
+    		return undefined;
+  		}
+
+		}
+
+	}
+}
+
+
+</script>
+
+</body>
+</html>

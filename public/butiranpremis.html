@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+
+  <title>Butiran Maklumat Gerai</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+    integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+    integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+    crossorigin="anonymous"></script>
+  <link rel="icon" href="favicon.ico">
+
+
+
+
+  <style>
+    @page {
+      size: A4;
+      margin: 0;
+    }
+
+    @media print {
+
+      html,
+      body {
+        width: 210mm;
+        height: 297mm;
+      }
+
+      /* ... the rest of the rules ... */
+    }
+
+
+    body {
+      background: url(https://i.ya-webdesign.com/images/png-images-for-website-background-1.png)
+    }
+
+    page {
+      background: white;
+      display: block;
+      margin: 0 auto;
+      margin-bottom: 0.5cm;
+      box-shadow: 0 0 0.5cm rgba(0, 0, 0, 0.5);
+    }
+
+    page[size="A4"] {
+      width: 21cm;
+      height: 29.7cm;
+    }
+
+    page[size="A4"][layout="landscape"] {
+      width: 29.7cm;
+      height: 21cm;
+    }
+
+    page[size="A3"] {
+      width: 29.7cm;
+      height: 42cm;
+    }
+
+    page[size="A3"][layout="landscape"] {
+      width: 42cm;
+      height: 29.7cm;
+    }
+
+    page[size="A5"] {
+      width: 14.8cm;
+      height: 21cm;
+    }
+
+    page[size="A5"][layout="landscape"] {
+      width: 21cm;
+      height: 14.8cm;
+    }
+
+    @media print {
+
+      body,
+      page {
+        margin: 0;
+        box-shadow: 0;
+      }
+    }
+
+    #unique {
+      padding: 0px;
+      display: block;
+      width: 0.7;
+      border: 0px;
+      margin-left: auto;
+      margin-right: auto;
+
+    }
+
+    .card img {
+      border: 1px solid #ddd;
+      border-radius: 2mm;
+      padding: 1mm;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      width: 100%;
+
+      object-fit: cover;
+    }
+
+
+    #idprompt {
+
+      cursor: pointer;
+      text-align: center;
+
+    }
+  </style>
+</head>
+
+<body>
+  <h1 style="text-align: center">BUTIRAN MAKLUMAT GERAI</h1>
+
+  <div id="idprompt">
+
+    <label for="fname" style="font-weight: bold;">Nyatakan Seksyen Anda</label>
+    <input type="text" id="fname" name="fname" style="text-align:center"><br><br>
+
+    <div class="btn-group" role="group" aria-label="Basic example">
+      <button type="button" onclick="loadDoc(1)" class="btn btn-secondary">Dapatkan No kod ID Premis</button>
+      <button type="button" onclick="loadDoc(2)" class="btn btn-secondary">Dapatkan No kod ID Kontraktor</button>
+    </div>
+
+
+  </div>
+
+
+  <div id="maindisplay">
+
+
+  </div>
+
+
+
+
+  <script>
+
+
+
+    var unixnamefilestring;
+    var uniqueauditfilename;
+
+    unixnamefilestring = Math.round(Math.floor(Date.now() / 1000) / 600) + 1;
+    uniqueauditfilename = "https://rjemuvfws8cu1il5q5n2zg-on.drv.tw/www.unit5splus.tk/indexfolder/2020AuditFinding/2020AuditFinding" + unixnamefilestring + ".txt";
+    uniquefasilitifilename = "https://prod-18.southeastasia.logic.azure.com:443/workflows/415a89ff009a404aa9a0d7f42da61225/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=mIklpr3bdUd783c57Bc68P2pTG81QGzU9Z5MfFSULHI";
+    uniquelocdetailfilename = "https://prod-13.southeastasia.logic.azure.com:443/workflows/94dad5065fd3461b9857b6c5bdc8c2e8/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=ATcM8NLnGC_zUIXm-GtL6RhoxB89l-AxOtQ4AFoh_n8";
+    uniquepremisedetailfilename = "/assets/pdf/allPremiseDetails.txt";
+    unique50specificfilename = "https://prod-17.southeastasia.logic.azure.com:443/workflows/b34126764f754993b9cbea4cc2299390/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=oLyOfFVjGbDLhWwTgGUUwbkVRyE7kQFLYf6yYmSf-4w";
+
+
+    console.log(uniqueauditfilename);
+
+
+    var alljsondata = [];
+    var locationauditee;
+    var id5s;
+
+    function loadDoc(responsetype) {
+      document.getElementById("maindisplay").innerHTML = "<div class=\"d-flex justify-content-center\">\n<div class=\"spinner-border\" role=\"status\">\n<span class=\"sr-only\">Loading...</span>\n</div>\n</div>"
+
+
+      var xhttp = new XMLHttpRequest();
+      var myObj;
+      var auditeeID = document.getElementById("fname").value;
+      locationauditee = auditeeID.split("-")[0];
+      id5S = auditeeID.split("-")[1];
+      alljsondata = [];
+
+      // Request to get multiple files using XMLHTTP request
+
+      var index = [uniqueauditfilename, uniquefasilitifilename, uniquelocdetailfilename, uniquepremisedetailfilename, unique50specificfilename];
+
+      var data;
+
+
+      for (var i = 0; i < index.length; i++) {
+
+        var url = index[i];
+
+        let request = new XMLHttpRequest();
+
+        if (i == 0 || i == 1 || i == 2 || i == 4) {
+          request.open("POST", url);
+          request.setRequestHeader("Content-Type", "application/json");
+        } else {
+          request.open("GET", url);
+        }
+
+        request.onreadystatechange = function () {
+          if (request.readyState === XMLHttpRequest.DONE && request.status === 200) {
+            data = JSON.parse(request.responseText);
+
+            if (alljsondata.length < 4) {
+              alljsondata.push(data);
+
+              if (alljsondata.filter(Boolean).length == 4) {
+                jsonFunctionReturn(alljsondata, responsetype);
+              }
+
+            }
+
+          }
+
+
+        }
+        request.send();
+      }
+
+
+
+    }
+
+
+    var auditfilejson;
+    var fasiliti5sjson;
+    var locationdetailjson;
+    var premisedetailjson;
+    var specificdetailsjson;
+
+
+    var sectionprompt;
+    var locat;
+
+    var listpremise = "";
+    var onetimecall = true;
+
+    function jsonFunctionReturn(myObj, responsetype) {
+      listfinding = "";
+      auditfilejson = {};
+      var todisplayarray = [];
+      //console.log(myObj);
+      // Assign each array from myObj retrieved from XMLHTTP request to the correct category of JSON
+      myObj.forEach(function (elementsall) {
+        console.log(elementsall);
+        if (elementsall[0].BILIK_x0020_FASILITI != undefined) { fasiliti5sjson = elementsall; }
+        if (elementsall[0].Abbreviation != undefined) { locationdetailjson = elementsall; }
+        if (elementsall[0].Person_x0020_In_x0020_Charge != undefined) { premisedetailjson = elementsall; }
+        if (elementsall[0].Specific_x0020_Details != undefined) { specificdetailsjson = elementsall; }
+      });
+      console.log(fasiliti5sjson);
+      console.log(premisedetailjson);
+
+      sectionprompt = document.getElementById("fname").value;
+
+      //console.log(specareaIDprompt);
+      // Check validity of prompt input
+      var ValidIDExist;
+      ValidIDExist = premisedetailjson.filter(function (item) {
+
+        if (item.Section == sectionprompt) {
+          return true;
+        } else {
+          return false;
+        }
+
+      });
+
+      if (ValidIDExist.length == 0) { document.getElementById("maindisplay").innerHTML = ""; alert("Sila masukkan no seksyen yang betul"); return; }
+
+
+
+      //Filter finding according to ID prompt no
+      todisplayarray = premisedetailjson.filter(function (item) {
+
+        if (item.Section == sectionprompt) {
+
+          return true;
+        }
+
+
+      });
+      //console.log(todisplayarray);
+      var inc;
+      //console.log(todisplayarray.length);
+      // To display HTML files from ID requested
+
+      console.log(todisplayarray);
+
+      if (responsetype == 1) {
+
+        listpremise = "<table class=\"table table-hover\">\n<thead>\n<tr>\n<th>Lokasi</th>\n<th>Nama Premis</th>\n<th>Rujukan / No Lot</th>\n<th>No kod ID</th>\n</tr>\n</thead>\n<tbody>";
+
+        for (inc = 0; inc < todisplayarray.length; inc++) {
+
+
+          var locatabbr = lookupProfile(locationdetailjson, "Location", todisplayarray[inc].Location, "Abbreviation");
+
+          var id5spremise = locatabbr + "-" + todisplayarray[inc].OData__x0035_S_x0020_ID;
+          var id5seis = locatabbr + "-" + "EIS";
+
+
+          var locationname = todisplayarray[inc].Location_x0020_Name;
+
+          if (locationname == "N/A" || locationname == "" || locationname == undefined) {
+
+            locationname = todisplayarray[inc].Person_x0020_In_x0020_Charge;
+          }
+
+
+          var nolot = todisplayarray[inc].Lot_x0020_No_x002e_;
+
+          if (nolot == "" || nolot == undefined) {
+
+            nolot = "-";
+          }
+
+
+          listpremise += "<tr>\n<td>" + todisplayarray[inc].Location + "</td>\n<td>" + locationname + "</td>\n<td>" + nolot + "</td>\n<td>" + id5spremise + "</td>\n</tr>";
+
+
+        };
+      } else if (responsetype == 2) {
+
+
+        var arraylocation;
+
+
+        //Filter finding according to ID prompt no
+        todisplayarray = locationdetailjson.filter(function (item) {
+
+          if (item.Title == sectionprompt) {
+
+            return true;
+          }
+
+
+        });
+
+
+        listpremise = "<table class=\"table table-hover\">\n<thead>\n<tr>\n<th>Lokasi</th>\n<th>No kod ID</th>\n</tr>\n</thead>\n<tbody>";
+
+
+        for (inc = 0; inc < todisplayarray.length; inc++) {
+
+
+          var locatabbr = lookupProfile(locationdetailjson, "Location", todisplayarray[inc].Location, "Abbreviation");
+
+          var id5seis = locatabbr + "-" + "EIS";
+
+
+
+
+          listpremise += "<tr>\n<td>" + todisplayarray[inc].Location + "</td>\n<td>" + id5seis + "</td>\n</tr>";
+
+
+        };
+
+
+
+
+
+
+      }
+
+
+      listpremise += "    </tbody>\n</table>";
+
+
+      document.getElementById("maindisplay").innerHTML = listpremise;
+
+
+    }
+
+
+    function lookupProfile(myObj, propertytolookup, valtolookup, lookedupprop) {
+
+      for (var i = 0; i < myObj.length; i++) {
+
+        if (myObj[i][propertytolookup] === valtolookup) {
+          if (myObj[i].hasOwnProperty(lookedupprop) === true) {
+            return myObj[i][lookedupprop];
+          }
+
+          else {
+            return undefined;
+          }
+
+        }
+
+      }
+    }
+
+
+  </script>
+
+</body>
+
+</html>

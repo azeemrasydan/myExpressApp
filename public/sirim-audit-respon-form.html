@@ -1,0 +1,472 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <style>
+        /* Start specific finding table */
+        * {
+            box-sizing: border-box;
+        }
+
+        #myInput {
+            background-image: url('/css/searchicon.png');
+            background-position: 10px 10px;
+            background-repeat: no-repeat;
+            width: 100%;
+            font-size: 16px;
+            padding: 12px 20px 12px 40px;
+            border: 1px solid #ddd;
+            margin-bottom: 12px;
+        }
+
+        #specificFinding {
+            background-image: url('/css/searchicon.png');
+            background-position: 10px 10px;
+            background-repeat: no-repeat;
+            width: 100%;
+            font-size: 16px;
+            padding: 12px 20px 12px 40px;
+            border: 1px solid #ddd;
+            margin-bottom: 12px;
+        }
+
+        #myTable {
+            border-collapse: collapse;
+            width: 100%;
+            border: 1px solid #ddd;
+            font-size: 16px;
+            color: black;
+        }
+
+        .toggleRowClass {
+            background-color: rgb(209, 201, 201);
+            color: black;
+        }
+
+        #myTable tr {
+
+            background-color: #009879;
+            color: #ffffff;
+            text-align: left;
+        }
+
+
+        #myTable th,
+        #myTable td {
+            text-align: left;
+            padding: 8px;
+        }
+
+
+
+        #myTable tr.header,
+        #myTable tr:hover {
+            background-color: #f1f1f1;
+            color: black;
+        }
+
+        /* End Specific Finding Table */
+
+        .dropdown {
+            margin: 20px;
+        }
+
+        .dropdown-menu {
+            max-height: 20rem;
+            overflow-y: auto;
+        }
+
+        .masthead {
+            height: 100vh;
+            min-height: 500px;
+            background-image: url('https://source.unsplash.com/BtbjCFUvBXs/1920x1080');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        body {
+
+            background-color: whitesmoke;
+        }
+
+        .card-body {
+            /* The image used */
+
+            /* Full height */
+            height: 100%;
+
+            /* Center and scale the image nicely */
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        .imageEvidence {
+
+            height: 200;
+            padding: 2 px;
+            border-image: 1cm;
+        }
+
+        .submittedEffect {
+
+            background-color: green;
+            transition-delay: 1000;
+        }
+
+        .submittedEffectFailed {
+
+            background-color: red;
+            transition-delay: 1000;
+        }
+
+        .fieldRequired {
+
+            padding: 2 px;
+            color: red;
+            font-weight: bold;
+            font-size: small;
+
+        }
+
+        /* Animation spinner */
+    </style>
+
+    <title>Green 5S SIRIM Audit Register</title>
+</head>
+
+<body>
+
+    <div class="card-body">
+
+        <h5 class="card-title">Maklum Balas Audit 5S Hijau SIRIM</h5>
+
+        <div class="div5s">
+
+            <form id="form">
+                <div class="form-group col-md-4">
+                </div>
+                <div class="thumbnail" id="dv1Preview" style="padding: 1px 1px 5px 1px; color:red; font-weight:bold">
+                </div>
+
+
+                <div class="form-group">
+                    <label for="inputAddress2"><b>Respondent</b></label>
+                    <input type="text" class="form-control" id="emailRespondent" placeholder="CA-xxxxxxxxxxx"
+                        name="Respondent Email" disabled>
+                </div>
+                <div class="form-group">
+                    <label for="uploadfile"><b>1. Masukkan gambar tindakan Pembetulan</b></label>
+                    <div id="data" class="fieldRequired"></div>
+                    <input type="file" class="form-control-file" id="imgInput" name="imgInput" accept="image/*"
+                        onchange="readURL(this);" multiple="multiple">
+                    <!-- <input id="submit" type="submit"> -->
+                </div>
+
+                <div class="thumbnail" id="dvPreview" style="padding: 1px 1px 5px 1px; color:red; font-weight:bold">
+                </div>
+                <div class="form-group">
+                    <label for="inputAddress2"><b>2. No penghantaran</b></label>
+                    <input type="text" class="form-control" id="inputAddress2" placeholder="CA-xxxxxxxxxxx"
+                        name="Submission No" disabled>
+                </div>
+                <div class="form-group">
+                    <label for="inputAddress2"><b>3. Keterangan tindakan pembetulan</b></label>
+                    <div id="dataDescription" class="fieldRequired"></div>
+                    <input type="text" class="form-control" id="inputAddress1"
+                        placeholder="Label sudah diganti baru dan ditampal" name="Description">
+                </div>
+
+
+                <div id="dataSubmit" class="fieldRequired"></div>
+                <button id="submit" type="submit" class="btn btn-primary">Submit</button>
+
+
+
+            </form>
+
+
+
+        </div>
+    </div>
+
+    </div>
+
+
+
+
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.js"></script>
+    <script type="module" src="./function.js"></script>
+
+
+    <script>
+        //Global variables
+        var locationArray = [];
+        var plusFacilityArray = [];
+        var plusClausesArray = [];
+        var selectedRowTag, selectedSpecificFinding;
+        var plusPremiseArray = [];
+        var numberFilesAdded = "";
+        var imageBase64 = {};
+        var submittingState = false;
+
+        //Script will run whenever page refreshes
+        $(document).ready(function () {
+
+            var img = document.createElement("IMG");
+            img.classList = "image-thumbnail";
+            img.style.height = "300px";
+            img.style.border = "3px solid #ddd";
+
+            getParameterByName('evidenceImage');
+
+            img.src = getParameterByName('evidenceImage');;
+
+            dv1Preview.appendChild(img);
+
+            var submissionNo = document.getElementById('inputAddress2');
+            submissionNo.value = getParameterByName('refno');
+
+            var emailRespondentElement = document.getElementById('emailRespondent');
+            emailRespondentElement.value = getParameterByName('emailRespondent')
+
+        });
+
+
+        function getParameterByName(name, url = window.location.href) {
+            name = name.replace(/[\[\]]/g, '\\$&');
+            var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+                results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, ' '));
+        }
+
+
+
+
+        function readURL(input) {
+            var dvPreview = document.getElementById("dvPreview");
+            dvPreview.innerHTML = "";
+            var regex = /\.(gif|jpg|jpeg|tiff|png)$/i;
+            inputImages = document.getElementById("imgInput");
+            var html = "";
+            numberFilesAdded = input.files.length;
+
+            if (input.files.length > 1) {
+
+                dvPreview.innerHTML = "Tidak boleh hantar lebih dari SATU gambar*"
+                inputImages.value = ""
+
+            }
+            else {
+
+                for (var i = 0; i < input.files.length; i++) {
+                    var file = input.files[i];
+
+                    if (regex.test(file.name.toLowerCase())) {
+                        var reader = new FileReader();
+                        console.log(reader);
+                        reader.fileName = "image" + i;
+                        //reader.fileName = file.name;
+                        reader.onload = function (e) {
+                            var img = document.createElement("IMG");
+                            img.classList = "image-thumbnail";
+                            img.style.height = "200px";
+                            img.style.border = "3px solid #ddd";
+
+                            img.src = e.target.result;
+
+                            dvPreview.appendChild(img);
+
+                            let mimeType = e.target.result.match(/^.*(?=;)/)[0];
+                            let dataBase64 = e.target.result.replace(/^.*,/, '');
+                            let jsonBase64 = mimeType + ";" + "base64," + dataBase64;
+                            let imageIndex = e.target.fileName;
+                            imageBase64[imageIndex] = jsonBase64;
+
+
+                            //html = html + '<input type="hidden" name=' + '"' + imageIndex + '"' + ' value="' + jsonBase64 + '" >';
+                            //console.log(html);
+                            // if (html == null) {
+                            //     let html = '<input type="hidden" name=' + '"' + imageIndex + '"' + ' value="' + jsonBase64 + '" >';
+                            // } else {
+                            //     html += '<input type="hidden" name=' + '"' + imageIndex + '"' + ' value="' + jsonBase64 + '" >';
+                            // };
+
+
+                            // html = '<input type="hidden" name="data" value="' + e.target.result.replace(/^.*,/, '') + '" >';
+                            // html += '<input type="hidden" name="mimetype" value="' + e.target.result.match(/^.*(?=;)/)[0] + '" >';
+                            // html += '<input type="hidden" name="filename" value="' + e.target.fileName + '" >';
+                            //$("#data").empty().append(html);
+
+                        }
+
+                        reader.readAsDataURL(file);
+                    } else {
+                        inputImages.value = ""
+                        dvPreview.innerHTML = file.name + " extension is not a valid image !*";
+                        $("#data").empty();
+                        break;
+                        return false;
+                    }
+                }
+
+
+
+            }
+
+        }
+
+        // Lookup value other proerty / key from Objects
+        function lookupProfile(myObj, propertytolookup, valtolookup, lookedupprop) {
+
+            for (var i = 0; i < myObj.length; i++) {
+
+                if (myObj[i][propertytolookup] === valtolookup) {
+                    if (myObj[i].hasOwnProperty(lookedupprop) === true) {
+                        return myObj[i][lookedupprop];
+                    }
+
+                    else {
+                        return undefined;
+                    }
+
+                }
+
+            }
+        }
+
+
+
+        var form = document.getElementById('form');
+        form.onsubmit = function (e) {
+            // stop the regular form submission
+            e.preventDefault();
+
+            // collect the form data while iterating over the inputs
+            var data = {};
+            for (var i = 0, ii = form.length; i < ii; ++i) {
+                var input = form[i];
+                if (input.name) {
+                    data[input.name] = input.value;
+                }
+            }
+
+            data["image0"] = imageBase64["image0"];
+
+
+            //Verify all forms are filled
+            let imageIsBlank = data["image0"] == undefined
+            let descriptionIsNotFilled = data["Description"] == "";
+           
+
+
+            //console.log(JSON.stringify(data));
+            if (imageIsBlank || descriptionIsNotFilled) {
+
+                if (imageIsBlank) document.getElementById("data").innerText = "Sila masukkan gambar !";
+                // if (locationIsNotSelected) document.getElementById("data2").innerText = "Sila masukkan keterangan tindakan pembetulan !";
+                if (descriptionIsNotFilled) document.getElementById("dataDescription").innerText = "Sila masukkan keterangan tindakan pembetulan !";
+
+                document.getElementById("dataSubmit").innerText = "Maklumat tidak lengkap !";
+
+            }
+            else if (submittingState) {
+                document.getElementById("dataSubmit").innerText = "Submitting, please wait !";
+            } else {
+
+                var submitButton = document.getElementById("submit");
+                const plusSIRIMAuditRespondURL = "https://prod-08.southeastasia.logic.azure.com:443/workflows/225c36bc62cd4f368c22e97a5f06c33c/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=7kpiCJJaKgi-nYfSb2SKrRux12c7F4BLOYs7unXQ-mY";
+                console.log(JSON.stringify(data));
+                submittingState = true;
+
+                fetch(plusSIRIMAuditRespondURL, {
+                    method: 'POST',
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(data)
+                })
+                    .then(response => {
+                        if (!response.ok) {
+                            submitButton.innerHTML = "Submission Unsuccessful";
+                            submitButton.classList.add('submittedEffectFailed');
+                            //setTimeout(function() { location.reload(); }, 2000);
+                            throw new Error('Network response was not ok');
+
+                        } else {
+
+                            submitButton.innerHTML = "Successful";
+                            submitButton.classList.add('submittedEffect');
+                            close();
+
+                        }
+                    })
+                    .then(data => {
+
+                    })
+                    .catch(error => {
+                        console.log(error)
+
+                    });
+            }
+
+            //console.log(data["submission id"]);
+            //console.log(JSON.stringify(data));
+
+            //submitButton.innerHTML = "Successful";
+            //submitButton.classList.add('submittedEffect');
+            //setTimeout(function() { location.reload(); }, 5000);
+
+
+            // construct an HTTP request
+            // var xhr = new XMLHttpRequest();
+            // xhr.open(form.method, form.asdfction, true);
+            // xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+
+            // // send the collected data as JSON
+            // xhr.send(JSON.stringify(data));
+
+            // xhr.onloadend = function () {
+            //     // done
+        };
+
+
+
+
+
+
+
+
+
+    </script>
+</body>
+
+</html>

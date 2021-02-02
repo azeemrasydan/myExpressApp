@@ -1,0 +1,12 @@
+{
+    "sourceDirectory": "src",
+    "sharePointSiteUrl": "https://pmbgrp.sharepoint.com/sites/PLUSQM/msdatabase",
+    "workspaceRoot": "c:\\Users\\azeemrasydan\\Desktop\\hello\\myExpressApp",
+    "publishWorkspaceOptions": {
+        "destinationFolder": "/",
+        "globPattern": "c:\\Users\\azeemrasydan\\Desktop\\hello\\myExpressApp\\src\\**\\*.*",
+        "localRoot": "c:\\Users\\azeemrasydan\\Desktop\\hello\\myExpressApp\\src"
+    },
+    "publishingScope": "Major",
+    "authenticationType": "Digest"
+}
