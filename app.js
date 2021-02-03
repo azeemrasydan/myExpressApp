@@ -8,6 +8,7 @@ var cors = require('cors');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var testRouter = require('./routes/test');
+var pdfCreator = require('./routes/pdfCreator');
 
 var app = express();
 app.use(cors());
@@ -25,6 +26,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', cors(), indexRouter);
 app.use('/users', cors(), usersRouter);
 app.use('/test',cors(), testRouter);
+app.use('/pdfcreator',cors(),pdfCreator);
 
 
 // catch 404 and forward to error handler
