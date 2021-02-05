@@ -101,7 +101,7 @@
                                 <p
                                     style='margin:0.01in;font-size:16px;font-family:"Times New Roman",serif;margin-left:11.05pt;text-align:center;text-indent:-22.55pt;'>
                                     <img src="http://www.allwhitebackground.com/images/2/2270.jpg"
-                                        style="text-align: left;  height: 125.7pt;" alt="image"
+                                        style="text-align: left;  height: 129.7pt;" alt="image"
                                         class="correction-finding-image1">
                                 </p>
                             </td>
@@ -189,7 +189,7 @@
                                 <p
                                     style='margin:0.01in;font-size:16px;font-family:"Times New Roman",serif;margin-left:11.05pt;text-align:center;text-indent:-22.55pt;'>
                                     <img src="http://www.allwhitebackground.com/images/2/2270.jpg"
-                                        style="text-align: left; height: 125.7pt;" alt="image"
+                                        style="text-align: left; height: 129.7pt" alt="image"
                                         class="correction-finding-image2">
                                 </p>
                             </td>
@@ -627,16 +627,18 @@
 
                     correctionFindingImage2 = document.getElementById("A4-" + incPage).getElementsByClassName("correction-finding-image2")[0];
                     correctionFindingImage2.src = ftpCorrectionFileLink;
-
+                    correctionFindingImage2.style.height = "400";
                     correctionFindingImage2.onload = function () {
 
                         if (this.clientHeight > this.clientWidth) {
-                            this.clientHeight = 264.75;
                             this.style.transform = "rotate(90deg)";
+                            this.style.height = "400";
+                            this.style.width = "400";
+                            console.log(this.style.height)
 
                         } else {
 
-                            this.clientWidth = 240.75;;
+                            this.style.width = "220";
                         }
 
                     };
@@ -668,15 +670,19 @@
 
                     correctionFindingImage1 = document.getElementById("A4-" + incPage).getElementsByClassName("correction-finding-image1")[0];
                     correctionFindingImage1.src = ftpCorrectionFileLink;
+                    correctionFindingImage1.style.height = "400";
                     correctionFindingImage1.onload = function () {
 
                         if (this.clientHeight > this.clientWidth) {
-                            this.clientHeight = 264.75;
+                            
                             this.style.transform = "rotate(90deg)";
+                            this.style.height = "400";
+                            this.style.width = "400";
+                            console.log(this.style.height)
 
                         } else {
 
-                            this.clientWidth = 264.75;
+                            this.style.width = "220";
                         }
 
                     };
